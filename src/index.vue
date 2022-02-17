@@ -1,11 +1,11 @@
 <template>
-  <div class="web">
+  <div class="web-entry">
     <router-view></router-view>
   </div>
 </template>
 <script lang="ts">
 export default {
-  name: "web",
+  name: 'web-entry',
 
   components: {},
 
@@ -15,8 +15,8 @@ export default {
 
   watch: {},
 
-  methods: {},
-};
+  methods: {}
+}
 </script>
 
 <style scoped>

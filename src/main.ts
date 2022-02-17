@@ -1,12 +1,13 @@
 import { createApp } from 'vue'
 import web from './index.vue'
-// 
-const app = createApp(web)
 // router
 import router from './router/index'
-app.use(router)
 // vuex
 import store from './store/index'
+//
+const app = createApp(web)
+app.use(router)
+
 app.use(store)
 // mount
 app.mount('#web')
