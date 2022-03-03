@@ -8,7 +8,7 @@ const layoutFrame = import.meta.glob('../components/layout/*.vue')
 // routes: 最基本的静态routes
 import routes from './routes'
 // menu: 模拟从后端获取的菜单Array
-import { menuList, menuInfoInterface } from './mock/routes.js'
+import { menuList, menuInfoInterface } from './mock/index.js'
 // router-enum: 路由枚举
 import { ENUM_STATIC_ROUTE, ENUM_DYNAMIC_ROUTE } from './enum/index.js'
 // router-create: 创建router
