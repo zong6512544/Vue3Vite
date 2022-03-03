@@ -6,14 +6,14 @@
  * @Description: 模拟后端返回的菜单
  */
 
-interface menuInfoInterface {
+interface MenuInfoInterface {
   alias: string
   name: string
   icon?: string
-  subMenuList?: Array<menuInfoInterface>
+  subMenuList?: Array<MenuInfoInterface>
 }
 
-const menuList: Array<menuInfoInterface> = [
+const menuList: Array<MenuInfoInterface> = [
   {
     alias: 'index',
     icon: 'iconshouye1',
@@ -39,4 +39,4 @@ const menuList: Array<menuInfoInterface> = [
   }
 ]
 
-export { menuList, menuInfoInterface }
+export { menuList, MenuInfoInterface }

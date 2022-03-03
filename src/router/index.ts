@@ -8,7 +8,7 @@ const layoutFrame = import.meta.glob('../components/layout/*.vue')
 // routes: 最基本的静态routes
 import routes from './routes'
 // menu: 模拟从后端获取的菜单Array
-import { menuList, menuInfoInterface } from './mock/index.js'
+import { menuList, MenuInfoInterface } from './mock/index.js'
 // router-enum: 路由枚举
 import { ENUM_STATIC_ROUTE, ENUM_DYNAMIC_ROUTE } from './enum/index.js'
 // router-create: 创建router
@@ -67,7 +67,7 @@ function routerAccessTo(to: RouteLocation, from: RouteLocation, next: Navigation
   }
 }
 // *********************************************router-loading*********************************************
-function routerLoading(menu: Array<menuInfoInterface>): Array<RouteRecordRaw> {
+function routerLoading(menu: Array<MenuInfoInterface>): Array<RouteRecordRaw> {
   // 保存主菜单
   store.commit('saveMenuRoutes', menu)
   // 过滤无需动态挂载的菜单router
@@ -87,7 +87,7 @@ function routerLoading(menu: Array<menuInfoInterface>): Array<RouteRecordRaw> {
   return routes
 }
 // *********************************************router-create*********************************************
-function routerCreate(menu: Array<menuInfoInterface> = []): Array<RouteRecordRaw> {
+function routerCreate(menu: Array<MenuInfoInterface> = []): Array<RouteRecordRaw> {
   const newRoutes = []
   for (let i = 0; i < menu.length; i++) {
     // 菜单项数据format
@@ -119,7 +119,7 @@ function routerCreate(menu: Array<menuInfoInterface> = []): Array<RouteRecordRaw
   }
   return newRoutes
 }
-function getRouterInfo(route: menuInfoInterface): any {
+function getRouterInfo(route: MenuInfoInterface): any {
   // 如果本地没有维护该动态route
   if (!ENUM_DYNAMIC_ROUTE[route.alias]) return false
   return {
