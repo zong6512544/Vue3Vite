@@ -48,7 +48,7 @@ export default createStore({
   },
   actions: {},
   getters: {
-    menuRoutesGetters(state: stateInterface) {
+    menuRoutesGetters(state: stateInterface): Array<object> {
       return state.menuRoutes
     }
   }
