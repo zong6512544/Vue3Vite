@@ -144,7 +144,14 @@ function routerReset() {
 // *********************************************router-to*********************************************
 function routerTo(routesFormate: Array<RouteRecordRaw>, next: NavigationGuardNext, to: RouteLocation, init: boolean): void {
   // 请求的路由未配置到就跳转到首页
-  const toDefault = routerPermissionExam(routesFormate, to)
+  const toDefault = routesFormate.some((route) => {
+    // 无children，则无二级菜单，默认跳过
+    if (!route.children) return true
+    // 否则
+    return route.children.some((child: RouteRecordRaw) => {
+      return child.path === to.path
+    })
+  })
   // 当前的path未匹配到routes
   if (!toDefault) {
     next(ENUM_STATIC_ROUTE.index)
@@ -153,15 +160,5 @@ function routerTo(routesFormate: Array<RouteRecordRaw>, next: NavigationGuardNex
     init ? next(to) : next()
   }
 }
-// *********************************************router-permit-verify*********************************************
-function routerPermissionExam(routesFormate: Array<RouteRecordRaw>, to: RouteLocation) {
-  return routesFormate.some((route) => {
-    // 无children，则无二级菜单，默认跳过
-    if (!route.children) return true
-    // 否则
-    return route.children.some((child: RouteRecordRaw) => {
-      return child.path === to.path
-    })
-  })
-}
+
 export default router
