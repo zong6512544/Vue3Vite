@@ -28,12 +28,12 @@ const menuList: Array<MenuInfoInterface> = [
       {
         alias: 'groupList',
         icon: '',
-        name: '会员列表'
+        name: '群列表'
       },
       {
         alias: 'userList',
         icon: '',
-        name: '师资列表'
+        name: '用户列表'
       }
     ]
   }
