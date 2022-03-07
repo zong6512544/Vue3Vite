@@ -1,10 +1,18 @@
 // import
-import { createRouter, createWebHashHistory, RouteRecordRaw, RouteLocation, NavigationGuardNext } from 'vue-router'
+import {
+  createRouter,
+  createWebHashHistory,
+  RouteRecordRaw,
+  RouteLocation,
+  NavigationGuardNext
+} from 'vue-router'
 // store
 import store from '../store'
 // vite-import
-const pages = import.meta.glob('../views/*/*/index.vue')
+const pages2Level = import.meta.glob('../views/*/*/*.vue')
+const pages3Level = import.meta.glob('../views/*/*/*/*.vue')
 const layoutFrame = import.meta.glob('../components/layout/*.vue')
+const notFoundPage = import.meta.glob('../views/404/*.vue')
 // routes: 最基本的静态routes
 import routes from './routes'
 // menu: 模拟从后端获取的菜单Array
@@ -53,16 +61,19 @@ function routerAccessTo(to: RouteLocation, from: RouteLocation, next: Navigation
     // 获取菜单
     // 根据menu动态生成routes、挂载，并返回生成的routes
     const routes = routerLoading(menuList)
+    console.log('routes', routes)
     // 跳转操作
     // 请求的路由未匹配到就跳转到首页
-    routerTo(routes, next, to, true)
+    // routerTo(routes, next, to, true)
+    next(to)
   } else {
     if (to.matched.length === 0) {
       next(ENUM_STATIC_ROUTE.index)
     } else {
       // 跳转操作
       // 路由未匹配到就跳转到首页
-      routerTo(router.options.routes, next, to, false)
+      // routerTo(router.options.routes, next, to, false)
+      next()
     }
   }
 }
@@ -87,30 +98,38 @@ function routerLoading(menu: Array<MenuInfoInterface>): Array<RouteRecordRaw> {
   return routes
 }
 // *********************************************router-create*********************************************
-function routerCreate(menu: Array<MenuInfoInterface> = []): Array<RouteRecordRaw> {
+function routerCreate(menu: Array<MenuInfoInterface> = [], deep = 1): Array<RouteRecordRaw> {
   const newRoutes = []
   for (let i = 0; i < menu.length; i++) {
     // 菜单项数据format
     const obj = getRouterInfo(menu[i])
+    console.log('obj', obj)
     // 如果本地没有维护该router，跳出当前循环，不做format处理
     if (!obj) continue
     // 如果该遍历项没有subMenuList属性，则无子路由
     const subMenuList = menu[i].subMenuList
-    if (!subMenuList) {
+    if (subMenuList) {
+      // 如果有子路由：添加重定向，默认取children[0]
+      // 如果没有子路由：添加重定向到菜单404页面
+      obj.redirect = ENUM_DYNAMIC_ROUTE[subMenuList[0]?.alias]?.path || '' // 此处加上兼容，方便测试环境时改动菜单，防止router构造出错
+      obj.children = routerCreate(subMenuList, deep + 1)
+      /* webpack */
+      // obj.component = () => import('@/components/layout/frame.vue')
+      /* vite */
+      if (obj.redirect) {
+        const frameName = deep === 1 ? 'layout-frame' : 'layout-frame-child'
+        obj.component = () => layoutFrame[`../components/layout/${frameName}.vue`]()
+      } else {
+        obj.component = () => notFoundPage[`../views/404/not-found-permit.vue`]()
+      }
+    } else {
       // 后端返回值是驼峰，需要去驼峰处理
       const path = obj.path.replace(/([A-Z])/g, '-$1').toLowerCase()
       /* webpack */
       // obj.component = () => import('@/views' + path + '/index.vue')
       /* vite */
+      const pages = deep === 3 ? pages3Level : pages2Level
       obj.component = () => pages[`../views${path}/index.vue`]()
-    } else {
-      // 如果有子路由：添加重定向，默认取children[0]
-      obj.redirect = ENUM_DYNAMIC_ROUTE[subMenuList[0].alias]?.path || '' // 此处加上兼容，方便测试环境时改动菜单，防止router构造出错
-      obj.children = routerCreate(subMenuList)
-      /* webpack */
-      // obj.component = () => import('@/components/layout/frame.vue')
-      /* vite */
-      obj.component = () => layoutFrame['../components/layout/layout-frame.vue']()
     }
     // 添加到路由数组
     newRoutes.push(obj)
@@ -142,23 +161,26 @@ function routerReset() {
   // router.matcher = newRouter.matcher
 }
 // *********************************************router-to*********************************************
-function routerTo(routesFormate: Array<RouteRecordRaw>, next: NavigationGuardNext, to: RouteLocation, init: boolean): void {
-  // 请求的路由未配置到就跳转到首页
-  const toDefault = routesFormate.some((route) => {
-    // 无children，则无二级菜单，默认跳过
-    if (!route.children) return true
-    // 否则
-    return route.children.some((child: RouteRecordRaw) => {
-      return child.path === to.path
-    })
-  })
-  // 当前的path未匹配到routes
-  if (!toDefault) {
-    next(ENUM_STATIC_ROUTE.index)
-  } else {
-    // 是否挂载动态routes后的第一次跳转
-    init ? next(to) : next()
-  }
-}
+// function routerTo(routesFormate: Array<RouteRecordRaw>, next: NavigationGuardNext, to: RouteLocation, init: boolean): void {
+//   // 请求的路由未配置到就跳转到首页
+//   const toDefault = routesFormate.some((route) => {
+//     // 无children，则无二级菜单，默认跳过
+//     if (!route.children) return true
+//     // 否则
+//     return route.children.some((child: RouteRecordRaw) => {
+//       if (!route.children) return child.path === to.path
+//       return route.children.some((childSon: RouteRecordRaw) => {
+//         return childSon.path === to.path
+//       })
+//     })
+//   })
+//   // 当前的path未匹配到routes
+//   if (!toDefault) {
+//     next(ENUM_STATIC_ROUTE.index)
+//   } else {
+//     // 是否挂载动态routes后的第一次跳转
+//     init ? next(to) : next()
+//   }
+// }
 
 export default router

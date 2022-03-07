@@ -36,6 +36,26 @@ const menuList: Array<MenuInfoInterface> = [
         name: '用户列表'
       }
     ]
+  },
+  {
+    alias: 'authorizeManage',
+    name: '权限管理',
+    subMenuList: [
+      {
+        alias: 'authorizeManageUser',
+        name: '人员管理',
+        subMenuList: [
+          {
+            alias: 'authorizeManageUserVip',
+            name: '会员管理'
+          },
+          {
+            alias: 'authorizeManageUserStaff',
+            name: '员工管理'
+          }
+        ]
+      }
+    ]
   }
 ]
 

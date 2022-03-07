@@ -9,15 +9,23 @@ const routes: Array<RouteRecordRaw> = [
     },
     component: () => import('@/views/page-test.vue')
   },
+  // 登录页
   {
     path: ENUM_STATIC_ROUTE.login.path,
     name: 'login',
     component: () => import('@/views/login/index.vue')
   },
+  // 首页
   {
-    path: ENUM_STATIC_ROUTE.index.path,
+    path: '/',
     name: 'home',
-    component: () => import('@/views/home/index.vue')
+    component: () => import('@/components/layout/layout-frame.vue'),
+    children: [
+      {
+        path: ENUM_STATIC_ROUTE.index.path,
+        component: () => import('@/views/home/index.vue')
+      }
+    ]
   }
 ]
 

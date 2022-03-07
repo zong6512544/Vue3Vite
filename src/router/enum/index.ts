@@ -19,6 +19,7 @@ const ENUM_STATIC_ROUTE: any = {
 }
 // 动态route
 const ENUM_DYNAMIC_ROUTE: any = {
+  // ****************************************************************
   customerManage: {
     path: '/customer-manage'
   },
@@ -27,6 +28,19 @@ const ENUM_DYNAMIC_ROUTE: any = {
   },
   userList: {
     path: '/customer-manage/user-list'
+  },
+  // ****************************************************************
+  authorizeManage: {
+    path: '/authorize-manage'
+  },
+  authorizeManageUser: {
+    path: '/authorize-manage/user'
+  },
+  authorizeManageUserVip: {
+    path: '/authorize-manage/user/vip'
+  },
+  authorizeManageUserStaff: {
+    path: '/authorize-manage/user/staff'
   }
 }
 
