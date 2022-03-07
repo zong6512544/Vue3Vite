@@ -8,6 +8,7 @@
 module.exports = {
   // root: true,
   env: {
+    'vue/setup-compiler-macros': true,
     browser: true,
     es2021: true,
     node: true
@@ -29,7 +30,7 @@ module.exports = {
     // ts
     '@typescript-eslint/no-unused-vars': 'error', // 定义了但未使用的变量
     // vue
-    'vue/multi-word-component-names': 'error'
-    // '@typescript-eslint/explicit-module-boundary-types': 'error' // 函数没有return的类型
+    'vue/multi-word-component-names': 'error',
+    '@typescript-eslint/explicit-module-boundary-types': 'error' // 函数没有return的类型
   }
 }
