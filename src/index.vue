@@ -19,9 +19,17 @@ export default {
 }
 </script>
 
+<style lang="scss" scoped>
+.web-entry {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+}
+</style>
 <style lang="scss">
 * {
   margin: 0;
   padding: 0;
+  list-style: none;
 }
 </style>
