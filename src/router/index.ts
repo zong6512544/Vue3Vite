@@ -1,11 +1,5 @@
 // import
-import {
-  createRouter,
-  createWebHashHistory,
-  RouteRecordRaw,
-  RouteLocation,
-  NavigationGuardNext
-} from 'vue-router'
+import { createRouter, createWebHashHistory, RouteRecordRaw, RouteLocation, NavigationGuardNext } from 'vue-router'
 // store
 import store from '../store'
 // vite-import
@@ -49,12 +43,15 @@ router.beforeEach((to, from, next) => {
 // *********************************************router-to-success*********************************************
 function routerAccessTo(to: RouteLocation, from: RouteLocation, next: NavigationGuardNext) {
   // 保存：当前选中菜单
-  // 1.当前二级菜单路由name
-  // 2.基于当前二级菜单的权限路由
   store.commit('saveCurrActiveMenu', to.name)
   // 保存：当前选中菜单的父级subMenu(若有)
-  if (to.matched.length > 1) {
+  if (to.matched.length === 2) {
     store.commit('saveCurrActiveSubMenu', to.matched[0].name)
+    store.commit('saveCurrActiveSubMenuChild', '')
+  }
+  if (to.matched.length > 2) {
+    store.commit('saveCurrActiveSubMenu', to.matched[0].name)
+    store.commit('saveCurrActiveSubMenuChild', to.matched[1].name)
   }
   // 如果路由从来没有加载过
   if (!store.state.isRouterRequestStatus) {
@@ -103,7 +100,6 @@ function routerCreate(menu: Array<MenuInfoInterface> = [], deep = 1): Array<Rout
   for (let i = 0; i < menu.length; i++) {
     // 菜单项数据format
     const obj = getRouterInfo(menu[i])
-    console.log('obj', obj)
     // 如果本地没有维护该router，跳出当前循环，不做format处理
     if (!obj) continue
     // 如果该遍历项没有subMenuList属性，则无子路由

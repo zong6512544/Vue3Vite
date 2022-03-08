@@ -1,5 +1,5 @@
 <template>
-  <div class="index"></div>
+  <div class="staff">staff</div>
 </template>
 <script lang="ts" setup>
 import { onMounted, ref, computed } from 'vue'
@@ -13,6 +13,6 @@ onMounted(() => {
 })
 </script>
 <style lang="scss" scoped>
-.index {
+.staff {
 }
 </style>

@@ -19,5 +19,22 @@ const menu = store.state.menuRoutes
 </script>
 <style lang="scss" scoped>
 .layout-frame {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 1200px;
+  height: 100%;
+
+  // el-aisde
+  .el-aside {
+    position: relative;
+    box-sizing: border-box;
+    padding-bottom: 50px;
+    z-index: 100;
+    width: 220px !important;
+    height: 100%;
+    border-right: 1px solid rgba(#333, 0.2);
+    overflow: hidden;
+  }
 }
 </style>
