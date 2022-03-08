@@ -6,7 +6,7 @@
 {
   "useTabs": false, ## 使用tab缩进，默认false
   "tabWidth": 2, ## tab缩进n个字符，默认4
-  "printWidth": 100, ## 每行最少n个字符换行
+  "printWidth": 120, ## 每行最少n个字符换行
   "singleQuote": true, ## 使用单引号，默认false(在jsx中无效，默认都是双引号)
   "trailingComma": "none",
   "bracketSpacing": true, ## 对象中的空格，默认true

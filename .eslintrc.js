@@ -29,8 +29,9 @@ module.exports = {
     'no-unused-vars': 'error', // 定义了但未使用的变量
     // ts
     '@typescript-eslint/no-unused-vars': 'error', // 定义了但未使用的变量
+    '@typescript-eslint/explicit-module-boundary-types': 'error', // 函数没有return的类型
     // vue
     'vue/multi-word-component-names': 'error',
-    '@typescript-eslint/explicit-module-boundary-types': 'error' // 函数没有return的类型
+    'vue/no-v-for-template-key': 'off'
   }
 }
