@@ -1,5 +1,6 @@
 import { RouteRecordRaw } from 'vue-router'
 import { ENUM_STATIC_ROUTE } from './enum'
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/test',
@@ -17,7 +18,11 @@ const routes: Array<RouteRecordRaw> = [
   },
   // 首页
   {
-    path: '/',
+    path: ENUM_STATIC_ROUTE.index.path,
+    redirect: ENUM_STATIC_ROUTE.home.path
+  },
+  {
+    path: ENUM_STATIC_ROUTE.home.path,
     name: 'home',
     component: () => import('@/components/layout/layout-frame.vue'),
     children: [

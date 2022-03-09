@@ -15,7 +15,7 @@ interface MenuInfoInterface {
 
 const menuList: Array<MenuInfoInterface> = [
   {
-    alias: 'index',
+    alias: 'home',
     icon: 'iconshouye1',
     name: '首页'
   },

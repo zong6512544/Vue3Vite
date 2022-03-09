@@ -2,19 +2,19 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw, RouteLocation, NavigationGuardNext } from 'vue-router'
 // store
 import store from '../store'
-// vite-import
-const pages2Level = import.meta.glob('../views/*/*/*.vue')
-const pages3Level = import.meta.glob('../views/*/*/*/*.vue')
-const layoutFrame = import.meta.glob('../components/layout/*.vue')
-const notFoundPage = import.meta.glob('../views/404/*.vue')
 // routes: 最基本的静态routes
 import routes from './routes'
 // menu: 模拟从后端获取的菜单Array
 import { menuList, MenuInfoInterface } from './mock/index.js'
 // router-enum: 路由枚举
 import { ENUM_STATIC_ROUTE, ENUM_DYNAMIC_ROUTE } from './enum/index.js'
+// vite-import
+const pages2Level = import.meta.glob('../views/*/*/*.vue')
+const pages3Level = import.meta.glob('../views/*/*/*/*.vue')
+const layoutFrame = import.meta.glob('../components/layout/*.vue')
+const notFoundPage = import.meta.glob('../views/404/*.vue')
 // router-create: 创建router
-let router = createRouter({
+const router = createRouter({
   history: createWebHashHistory(),
   routes
 })
@@ -42,17 +42,8 @@ router.beforeEach((to, from, next) => {
 // })
 // *********************************************router-to-success*********************************************
 function routerAccessTo(to: RouteLocation, from: RouteLocation, next: NavigationGuardNext) {
-  // 保存：当前选中菜单
-  store.commit('saveCurrActiveMenu', to.name)
-  // 保存：当前选中菜单的父级subMenu(若有)
-  if (to.matched.length === 2) {
-    store.commit('saveCurrActiveSubMenu', to.matched[0].name)
-    store.commit('saveCurrActiveSubMenuChild', '')
-  }
-  if (to.matched.length > 2) {
-    store.commit('saveCurrActiveSubMenu', to.matched[0].name)
-    store.commit('saveCurrActiveSubMenuChild', to.matched[1].name)
-  }
+  // 保存菜单info
+  saveMenu(to)
   // 如果路由从来没有加载过
   if (!store.state.isRouterRequestStatus) {
     // 获取菜单
@@ -63,16 +54,31 @@ function routerAccessTo(to: RouteLocation, from: RouteLocation, next: Navigation
     // 请求的路由未匹配到就跳转到首页
     // routerTo(routes, next, to, true)
     next(to)
+  } else if (to.matched.length === 0) {
+    next(ENUM_STATIC_ROUTE.index)
   } else {
-    if (to.matched.length === 0) {
-      next(ENUM_STATIC_ROUTE.index)
-    } else {
-      // 跳转操作
-      // 路由未匹配到就跳转到首页
-      // routerTo(router.options.routes, next, to, false)
-      next()
-    }
+    // 跳转操作
+    // 路由未匹配到就跳转到首页
+    // routerTo(router.options.routes, next, to, false)
+    next()
   }
+}
+// *********************************************save-menu**************************************************
+function saveMenu(to: RouteLocation): void {
+  // 保存：当前选中菜单
+  store.commit('saveCurrActiveMenu', to.name)
+  let CurrActiveSubMenu: string = ''
+  let CurrActiveSubMenuChild: string = ''
+  if (to.matched.length > 1) {
+    CurrActiveSubMenu = to.matched[0].name as string
+  }
+  // 保存：当前选中菜单的父级subMenu(若有)
+  if (to.matched.length > 2) {
+    CurrActiveSubMenuChild = to.matched[1].name as string
+  }
+  // 保存：submenu
+  store.commit('saveCurrActiveSubMenu', CurrActiveSubMenu)
+  store.commit('saveCurrActiveSubMenuChild', CurrActiveSubMenuChild)
 }
 // *********************************************router-loading*********************************************
 function routerLoading(menu: Array<MenuInfoInterface>): Array<RouteRecordRaw> {
@@ -103,7 +109,7 @@ function routerCreate(menu: Array<MenuInfoInterface> = [], deep = 1): Array<Rout
     // 如果本地没有维护该router，跳出当前循环，不做format处理
     if (!obj) continue
     // 如果该遍历项没有subMenuList属性，则无子路由
-    const subMenuList = menu[i].subMenuList
+    const { subMenuList } = menu[i]
     if (subMenuList) {
       // 如果有子路由：添加重定向，默认取children[0]
       // 如果没有子路由：添加重定向到菜单404页面

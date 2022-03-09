@@ -12,6 +12,9 @@ const ENUM_STATIC_ROUTE: any = {
   index: {
     path: '/'
   },
+  home: {
+    path: '/home'
+  },
   // login
   login: {
     path: '/login'

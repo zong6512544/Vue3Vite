@@ -18,6 +18,7 @@ const store = useStore()
 const menu = store.state.menuRoutes
 </script>
 <style lang="scss" scoped>
+$menu-bg: #304156;
 .layout-frame {
   position: relative;
   box-sizing: border-box;
@@ -35,6 +36,7 @@ const menu = store.state.menuRoutes
     height: 100%;
     border-right: 1px solid rgba(#333, 0.2);
     overflow: hidden;
+    background: $menu-bg;
   }
 }
 </style>
