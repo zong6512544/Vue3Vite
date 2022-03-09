@@ -32,6 +32,10 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'error', // 函数没有return的类型
     // vue
     'vue/multi-word-component-names': 'error',
-    'vue/no-v-for-template-key': 'off'
+    'vue/no-v-for-template-key': 'off',
+    // airbnb
+    'import/extensions': 'off',
+    'import/no-unresolved': 'off',
+    'no-unused-expressions': 'off'
   }
 }
