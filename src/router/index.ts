@@ -1,5 +1,8 @@
 // import
 import { createRouter, createWebHashHistory, RouteRecordRaw, RouteLocation, NavigationGuardNext } from 'vue-router'
+// Nprogress
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 // store
 import store from '../store'
 // routes: 最基本的静态routes
@@ -13,6 +16,8 @@ const pages2Level = import.meta.glob('../views/*/*/*.vue')
 const pages3Level = import.meta.glob('../views/*/*/*/*.vue')
 const layoutFrame = import.meta.glob('../components/layout/*.vue')
 const notFoundPage = import.meta.glob('../views/404/*.vue')
+// Nprogress
+NProgress.configure({ showSpinner: false })
 // router-create: 创建router
 const router = createRouter({
   history: createWebHashHistory(),
@@ -20,6 +25,8 @@ const router = createRouter({
 })
 // *********************************************router-before*********************************************
 router.beforeEach((to, from, next) => {
+  // 进度条
+  NProgress.start()
   // 获取token
   const token = window.localStorage.getItem('token')
   // 白名单route拦截
@@ -37,9 +44,11 @@ router.beforeEach((to, from, next) => {
   }
 })
 // *********************************************router-after*********************************************
-// router.afterEach((to, from) => {
-//   console.log('to,from,next', to, from)
-// })
+router.afterEach((to, from) => {
+  // 进度条
+  console.log('to,from,next', to, from)
+  NProgress.done()
+})
 // *********************************************router-to-success*********************************************
 function routerAccessTo(to: RouteLocation, from: RouteLocation, next: NavigationGuardNext) {
   // 保存菜单info
