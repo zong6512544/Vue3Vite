@@ -6,8 +6,12 @@
  * @Description: route枚举
  */
 
+interface InterfaceEnumRoute {
+  [name: string]: { path: string }
+}
+
 // 静态route
-const ENUM_STATIC_ROUTE: any = {
+const ENUM_STATIC_ROUTE: InterfaceEnumRoute = {
   // home
   index: {
     path: '/'
@@ -21,7 +25,7 @@ const ENUM_STATIC_ROUTE: any = {
   }
 }
 // 动态route
-const ENUM_DYNAMIC_ROUTE: any = {
+const ENUM_DYNAMIC_ROUTE: InterfaceEnumRoute = {
   // ****************************************************************
   customerManage: {
     path: '/customer-manage'
@@ -48,7 +52,7 @@ const ENUM_DYNAMIC_ROUTE: any = {
 }
 
 // 所有route
-const ENUM_ROUTE: any = {
+const ENUM_ROUTE: InterfaceEnumRoute = {
   ...ENUM_STATIC_ROUTE,
   ...ENUM_DYNAMIC_ROUTE
 }
