@@ -25,7 +25,7 @@ const router = createRouter({
 })
 // *********************************************router-before*********************************************
 router.beforeEach((to, from, next) => {
-  // 进度条
+  // 进度条start
   NProgress.start()
   // 获取token
   const token = window.localStorage.getItem('token')
@@ -45,9 +45,9 @@ router.beforeEach((to, from, next) => {
 })
 // *********************************************router-after*********************************************
 router.afterEach((to, from) => {
-  // 进度条
-  console.log('to,from,next', to, from)
+  // 进度条close
   NProgress.done()
+  console.log('to,from,next', to, from)
 })
 // *********************************************router-to-success*********************************************
 function routerAccessTo(to: RouteLocation, from: RouteLocation, next: NavigationGuardNext) {
@@ -60,15 +60,11 @@ function routerAccessTo(to: RouteLocation, from: RouteLocation, next: Navigation
     const routes = routerLoading(menuList)
     console.log('routes', routes)
     // 跳转操作
-    // 请求的路由未匹配到就跳转到首页
-    // routerTo(routes, next, to, true)
     next(to)
   } else if (to.matched.length === 0) {
+    // 请求的路由未匹配到就跳转到首页
     next(ENUM_STATIC_ROUTE.index)
   } else {
-    // 跳转操作
-    // 路由未匹配到就跳转到首页
-    // routerTo(router.options.routes, next, to, false)
     next()
   }
 }
@@ -120,8 +116,8 @@ function routerCreate(menu: Array<MenuInfoInterface> = [], deep = 1): Array<Rout
     // 如果该遍历项没有subMenuList属性，则无子路由
     const { subMenuList } = menu[i]
     if (subMenuList) {
-      // 如果有子路由：添加重定向，默认取children[0]
-      // 如果没有子路由：添加重定向到菜单404页面
+      // 1.如果有子路由：添加重定向，默认取children[0]
+      // 2.如果没有子路由：添加重定向到菜单404页面
       obj.redirect = ENUM_DYNAMIC_ROUTE[subMenuList[0]?.alias]?.path || '' // 此处加上兼容，方便测试环境时改动菜单，防止router构造出错
       obj.children = routerCreate(subMenuList, deep + 1)
       /* webpack */
@@ -171,27 +167,5 @@ function routerReset() {
   // })
   // router.matcher = newRouter.matcher
 }
-// *********************************************router-to*********************************************
-// function routerTo(routesFormate: Array<RouteRecordRaw>, next: NavigationGuardNext, to: RouteLocation, init: boolean): void {
-//   // 请求的路由未配置到就跳转到首页
-//   const toDefault = routesFormate.some((route) => {
-//     // 无children，则无二级菜单，默认跳过
-//     if (!route.children) return true
-//     // 否则
-//     return route.children.some((child: RouteRecordRaw) => {
-//       if (!route.children) return child.path === to.path
-//       return route.children.some((childSon: RouteRecordRaw) => {
-//         return childSon.path === to.path
-//       })
-//     })
-//   })
-//   // 当前的path未匹配到routes
-//   if (!toDefault) {
-//     next(ENUM_STATIC_ROUTE.index)
-//   } else {
-//     // 是否挂载动态routes后的第一次跳转
-//     init ? next(to) : next()
-//   }
-// }
 
 export default router

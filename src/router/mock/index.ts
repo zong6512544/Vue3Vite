@@ -34,6 +34,16 @@ const menuList: Array<MenuInfoInterface> = [
         alias: 'userList',
         icon: '',
         name: '用户列表'
+      },
+      {
+        alias: 'userNotFoundTest',
+        name: '我是可能丢失的页面',
+        subMenuList: [
+          {
+            alias: 'userNotFoundTest',
+            name: '我是可能丢失的页面'
+          }
+        ]
       }
     ]
   },
@@ -52,8 +62,22 @@ const menuList: Array<MenuInfoInterface> = [
           {
             alias: 'authorizeManageUserStaff',
             name: '员工管理'
+          },
+          {
+            alias: 'notFoundTest',
+            name: '我是可能丢失的页面'
           }
         ]
+      }
+    ]
+  },
+  {
+    alias: 'notFoundTest',
+    name: '我是可能丢失的页面',
+    subMenuList: [
+      {
+        alias: 'notFoundTest',
+        name: '我是可能丢失的页面'
       }
     ]
   }

@@ -15,7 +15,7 @@ import { useStore } from 'vuex'
 import LayoutFrameAside from './layout-frame-aside.vue'
 // vuex
 const store = useStore()
-const menu = store.state.menuRoutes
+const menu = store.getters.menuRoutesGetters
 </script>
 <style lang="scss" scoped>
 $menu-bg: #304156;

@@ -67,7 +67,8 @@ const props = defineProps({
 const menuPaddingLeft = ref(20) // 用于递归组件控制padding-left的间距
 //
 function routerTo(alias: string): void {
-  ENUM_ROUTE[alias] && router.push(ENUM_ROUTE[alias])
+  //   ENUM_ROUTE[alias] && router.push(ENUM_ROUTE[alias])
+  router.push(ENUM_ROUTE[alias] || ENUM_ROUTE.notFound)
 }
 // 判断当前subMenu从vuex读取的数据
 const diffSubMenuInfo = computed(() => {
@@ -139,7 +140,7 @@ $menu-bg-effect: #001528;
 
   // 当前选中subMenu样式
   .el-sub-menu__curr--active {
-    .el-sub-menu__title {
+    & > .el-sub-menu__title {
       span,
       i {
         color: $menu-text-effect !important;

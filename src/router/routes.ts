@@ -31,6 +31,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/home/index.vue')
       }
     ]
+  },
+  // 404
+  {
+    path: ENUM_STATIC_ROUTE.notFound.path,
+    component: () => import('@/views/404/not-found.vue')
   }
 ]
 

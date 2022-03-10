@@ -22,6 +22,10 @@ const ENUM_STATIC_ROUTE: InterfaceEnumRoute = {
   // login
   login: {
     path: '/login'
+  },
+  // not found
+  notFound: {
+    path: '/notFound'
   }
 }
 // 动态route
@@ -57,4 +61,4 @@ const ENUM_ROUTE: InterfaceEnumRoute = {
   ...ENUM_DYNAMIC_ROUTE
 }
 
-export { ENUM_STATIC_ROUTE, ENUM_DYNAMIC_ROUTE, ENUM_ROUTE }
+export { ENUM_STATIC_ROUTE, ENUM_DYNAMIC_ROUTE, ENUM_ROUTE, InterfaceEnumRoute }
