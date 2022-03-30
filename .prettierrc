@@ -1,17 +1,9 @@
-# 在本项目中，我们进行如下简单配置，关于更多配置项信息，请前往官网查看 https://prettier.io/docs/en/options.html
-
-# 格式化所有文件（. 表示所有文件）
-# npx prettier --write
-
 {
-  'useTabs': false, ## 使用tab缩进，默认false
-  'tabWidth': 2, ## tab缩进n个字符，默认4
-  'printWidth': 120, ## 每行最少n个字符换行
-  'singleQuote': true, ## 使用单引号，默认false(在jsx中无效，默认都是双引号)
-  'trailingComma': 'none',
-  'bracketSpacing':
-    true ## 对象中的空格，默认true
-    # true  { foo: bar }
-    # false {foo: bar},
-  'semi': false ## 使用分号(;)，默认true
+  "useTabs": false,
+  "tabWidth": 2,
+  "printWidth": 120,
+  "singleQuote": true,
+  "trailingComma": "none",
+  "bracketSpacing": true,
+  "semi": false
 }
