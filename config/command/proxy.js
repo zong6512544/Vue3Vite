@@ -10,7 +10,7 @@ const { exec } = require('child_process')
 const target = process.argv[2]
 console.log('\x1B[36m%s\x1B[0m', 'Project start, about to agent：', target)
 // 执行启动项目命令，并带入参数
-const cmd = `npm run serve -- --env.target=${target}`
+const cmd = `npx vite -- --target=${target}`
 const temp = exec(
   cmd,
   {

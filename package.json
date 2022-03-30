@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "node ./config/command/build.js",
+    "proxy": "node ./config/command/proxy.js",
     "preview": "vite preview",
     "prepare": "husky install"
   },
