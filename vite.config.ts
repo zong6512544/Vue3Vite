@@ -23,18 +23,16 @@ export default defineConfig(({ mode }) => {
       strictPort: false, // 设为 true 时若端口已被占用则会直接退出，而不是尝试下一个可用端口。
       // https: false, //
       open: true, // 在开发服务器启动时自动在浏览器中打开应用程序。
+      // 为开发服务器配置自定义代理规则。
       proxy: {
-        // 为开发服务器配置自定义代理规则。
-        // proxy: {
-        //   '/api': {
-        //     target: 'http://xxx.xxx.xxx.xxx:8000',
-        //     changeOrigin: true,
-        //     secure: false,
-        //     rewrite: (path) => path.replace('/api/', '/')
-        //   }
-        // }
+        '/api': {
+          target: 'http://127.0.0.1:8080',
+          changeOrigin: true,
+          secure: false,
+          rewrite: (path) => path.replace('/api/', '/')
+        }
       },
-      cors: true, // 为开发服务器配置 CORS。默认启用并允许任何源，传递一个 选项对象 来调整行为或设为 false 表示禁用
+      // cors: true, // 为开发服务器配置 CORS。默认启用并允许任何源，传递一个 选项对象 来调整行为或设为 false 表示禁用
       // force: false // 设置为 true 强制使依赖预构建
       // hmr:
       // watch:

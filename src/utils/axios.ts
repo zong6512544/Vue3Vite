@@ -1,10 +1,10 @@
 import Axios from 'axios'
 import { ElMessage } from 'element-plus'
 
-const baseURL = 'https://api.github.com'
+// const baseURL = 'https://api.github.com'
 
 const axios = Axios.create({
-  baseURL,
+  // baseURL,
   timeout: 20000 // 请求超时 20s
 })
 

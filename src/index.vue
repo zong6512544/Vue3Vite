@@ -4,12 +4,15 @@
   </div>
 </template>
 <script lang="ts">
+import { login } from '@/api/test'
 export default {
   name: 'web-entry',
 
   components: {},
 
-  setup(): any {},
+  setup(): any {
+    login()
+  },
 
   computed: {},
 
