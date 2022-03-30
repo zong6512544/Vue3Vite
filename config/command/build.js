@@ -5,6 +5,7 @@ const { exec } = require('child_process')
 const target = process.argv[2] || 'prod'
 // https://vitejs.cn/guide/env-and-mode.html#modes
 const cmd = `vue-tsc --noEmit && vite build --mode ${target}`
+// const cmd = `vite build --mode ${target}`
 console.log('\x1B[36m%s\x1B[0m', 'Project start build...', cmd)
 // 执行打包命令
 const temp = exec(

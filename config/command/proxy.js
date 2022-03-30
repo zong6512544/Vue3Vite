@@ -1,14 +1,10 @@
 /*
- * @Author: zongbao.yao
- * @Date: 2021-10-19 09:58:44
- * @LastEditors: zongbao.yao
- * @LastEditTime: 2021-10-19 10:39:57
- * @Description: 本地启动（代理）
+ * @Description: 项目启动的时候（npm run proxy ip) 执行此脚本、并传入需要跨域代理的【参数ip】
+                 根据【参数ip】去修改vite.server.proxy的代理地址
  */
 const { exec } = require('child_process')
 // 获取控制台参数(代理ip)
 const target = process.argv[2]
-console.log('\x1B[36m%s\x1B[0m', 'Project start, about to agent：', target)
 // 执行启动项目命令，并带入参数
 const cmd = `npx vite -- --target=${target}`
 const temp = exec(
