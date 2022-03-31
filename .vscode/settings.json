@@ -1,0 +1,12 @@
+{
+  "eslint.validate": [
+    // "javascript",
+    "vue",
+    "typescript"
+  ],
+  "eslint.format.enable": true,
+  "eslint.alwaysShowStatus": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}
