@@ -15,10 +15,10 @@ server.on('request', (request, response) => {
   })
 
   // 通过匹配客户端的URL地址，分别处理
-  if (requestUrl === '/login') {
+  if (requestUrl === '/login') 
+{
     response.end('{ code: 0, token: 123123}')
-  } 
-else {
+  } else {
     response.end('page 404')
   }
 })
