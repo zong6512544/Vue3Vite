@@ -22,12 +22,12 @@ const routes: Array<RouteRecordRaw> = [
     redirect: ENUM_STATIC_ROUTE.home.path
   },
   {
-    path: ENUM_STATIC_ROUTE.home.path,
+    path: ENUM_STATIC_ROUTE.index.path,
     name: 'home',
     component: () => import('@/components/layout/layout-frame.vue'),
     children: [
       {
-        path: ENUM_STATIC_ROUTE.index.path,
+        path: ENUM_STATIC_ROUTE.home.path,
         component: () => import('@/views/home/index.vue')
       }
     ]
